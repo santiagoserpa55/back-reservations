@@ -13,7 +13,11 @@ public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private Long id;
+	private Integer id;
+//	@Column(name = "tipo_id")
+//	private String tipoId;
+//	@Column(name = "userId")
+//	private Integer userId;
 	@Column(name = "first_name")
 	private String firstName;
 	@Column(name = "last_name")
@@ -24,11 +28,11 @@ public class UserEntity {
 	public UserEntity() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -62,6 +66,24 @@ public class UserEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}	
+	}
+
+//	public String getTipoId() {
+//		return tipoId;
+//	}
+//
+//	public void setTipoId(String tipoId) {
+//		this.tipoId = tipoId;
+//	}
+
+//	public Integer getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(Integer userId) {
+//		this.userId = userId;
+//	}
+//	
+	
 
 }

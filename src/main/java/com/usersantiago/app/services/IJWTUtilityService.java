@@ -9,7 +9,10 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jwt.JWTClaimsSet;
 
 public interface IJWTUtilityService {
-	public String generateJWT(Long userId) throws InvalidKeySpecException, NoSuchAlgorithmException, IOException, JOSEException;
-	public JWTClaimsSet parseJWT(String jwt) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, ParseException, JOSEException;
+	public String generateJWT(Integer userId)
+			throws InvalidKeySpecException, NoSuchAlgorithmException, IOException, JOSEException;
+
+	public JWTClaimsSet parseJWT(String jwt)
+			throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, ParseException, JOSEException;
 
 }

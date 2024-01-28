@@ -18,7 +18,6 @@ public class UserControllers {
 	private IUserService userService;
 
 	public UserControllers(IUserService userService) {
-		super();
 		this.userService = userService;
 	}
 	

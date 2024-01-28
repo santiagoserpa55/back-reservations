@@ -24,7 +24,6 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	private IJWTUtilityService jwtUtilityService;
 
 	public JWTAuthorizationFilter(IJWTUtilityService jwtUtilityService) {
-		super();
 		this.jwtUtilityService = jwtUtilityService;
 	}
 
