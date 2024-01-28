@@ -15,10 +15,9 @@ import com.usersantiago.app.services.models.dtos.LoginDTO;
 import com.usersantiago.app.services.models.dtos.ResponseDTO;
 import com.usersantiago.app.services.models.validations.UserValidations;
 
-
 @Service
 public class AuthServiceImpl implements IAuthService {
-
+	static final String MSG_USER_EXISTS = "User already exists!";
 	private UserRepository userRepository;
 	private IJWTUtilityService jwtUtilityService;
 	private UserValidations userValidations;
@@ -36,7 +35,7 @@ public class AuthServiceImpl implements IAuthService {
 		try {
 			HashMap<String, String> jwt = new HashMap<>();
 
-			Optional<UserEntity> user = userRepository.findByEmail(login.getEmail());
+			Optional<UserEntity> user = userRepository.findUserByEmail(login.getEmail());
 			if (user.isEmpty()) {
 				jwt.put("error", "user not registered!");
 				return jwt;
@@ -51,13 +50,12 @@ public class AuthServiceImpl implements IAuthService {
 			return jwt;
 
 		} catch (IllegalArgumentException e) {
-		     System.err.println("Error generating JWT: " + e.getMessage());
-	         throw new Exception("Error generating JWT", e);
+			System.err.println("Error generating JWT: " + e.getMessage());
+			throw new Exception("Error generating JWT", e);
+		} catch (Exception e) {
+			System.err.println("Unknown error: " + e.toString());
+			throw new Exception("Unknown error", e);
 		}
-		catch (Exception e) {
-            System.err.println("Unknown error: " + e.toString());
-            throw new Exception("Unknown error", e);
-        }
 
 	}
 
@@ -72,11 +70,11 @@ public class AuthServiceImpl implements IAuthService {
 			}
 
 			List<UserEntity> getAllUsers = userRepository.findAll();
-
+			// for no optimizado
 			for (UserEntity repeatFields : getAllUsers) {
 				if (repeatFields != null) {
 					response.setNumOfErrors(1);
-					response.setMessage("User already exists!");
+					response.setMessage(MSG_USER_EXISTS);
 					return response;
 				}
 			}
@@ -85,7 +83,7 @@ public class AuthServiceImpl implements IAuthService {
 			user.setPassword(encoder.encode(user.getPassword()));
 			userRepository.save(user);
 			response.setMessage("User created succesfully!");
-			
+
 			return response;
 		} catch (Exception e) {
 			throw new Exception(e.toString());
@@ -93,7 +91,7 @@ public class AuthServiceImpl implements IAuthService {
 	}
 
 	private boolean verifyPassword(String enteredPassword, String storedPassword) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();// bean que creamos en SecurityConfig
 		return encoder.matches(enteredPassword, storedPassword);
 	}
 

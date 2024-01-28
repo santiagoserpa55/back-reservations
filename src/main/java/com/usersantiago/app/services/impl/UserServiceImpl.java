@@ -14,7 +14,6 @@ public class UserServiceImpl implements IUserService {
 	private UserRepository userRepository;
 
 	public UserServiceImpl(UserRepository userRepository) {
-		super();
 		this.userRepository = userRepository;
 	}
 

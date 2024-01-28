@@ -23,7 +23,6 @@ public class SecurityConfig {
 	private IJWTUtilityService jwtUtilityService;
 
 	public SecurityConfig(IJWTUtilityService jwtUtilityService) {
-		super();
 		this.jwtUtilityService = jwtUtilityService;
 	}
 
@@ -31,7 +30,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(
-						authRequest -> authRequest.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
+						authRequest -> authRequest.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())//add roles
 				.sessionManagement(
 						sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(new JWTAuthorizationFilter((JWTUtilityServiceImpl) jwtUtilityService),

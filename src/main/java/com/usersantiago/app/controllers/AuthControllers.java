@@ -21,13 +21,12 @@ public class AuthControllers {
 	private IAuthService authService;
 
 	public AuthControllers(IAuthService authService) {
-		super();
 		this.authService = authService;
 	}
 
 	@PostMapping("/register")
 	private ResponseEntity<ResponseDTO> register(@RequestBody UserEntity user) throws Exception {
-		return new ResponseEntity<>(authService.register(user), HttpStatus.CREATED);		
+		return new ResponseEntity<>(authService.register(user), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")
@@ -36,7 +35,7 @@ public class AuthControllers {
 		if (login.containsKey("jwt")) {
 			return new ResponseEntity<>(login, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(login, HttpStatus.UNAUTHORIZED);			
+			return new ResponseEntity<>(login, HttpStatus.UNAUTHORIZED);
 		}
 	}
 

@@ -33,7 +33,11 @@ import com.usersantiago.app.services.IJWTUtilityService;
 
 @Service
 public class JWTUtilityServiceImpl implements IJWTUtilityService {
+	
+	static final String MSG_INVALID_SIGNATURE = "Invalid Signature";
+	static final String MSG_EXPIRED_TOKEN = "Expired token";
 
+	// añadimos los @Value, pasar el path de las claves
 	@Value("classpath:jwtKeys/private_key.pem")
 	private Resource privateKeyResource;
 
@@ -41,7 +45,7 @@ public class JWTUtilityServiceImpl implements IJWTUtilityService {
 	private Resource publicKeyResource;
 
 	@Override
-	public String generateJWT(Long userId)
+	public String generateJWT(Integer userId)
 			throws InvalidKeySpecException, NoSuchAlgorithmException, IOException, JOSEException {
 		PrivateKey privateKey = loadPrivateKey(privateKeyResource);
 
@@ -66,13 +70,13 @@ public class JWTUtilityServiceImpl implements IJWTUtilityService {
 		JWSVerifier verifier = new RSASSAVerifier((RSAPublicKey) publicKey);
 
 		if (!signedJWT.verify(verifier)) {
-			throw new JOSEException("Invalid Signature");
+			throw new JOSEException(MSG_INVALID_SIGNATURE);
 		}
 
 		JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
 
 		if (claimsSet.getExpirationTime().before(new Date())) {
-			throw new JOSEException("Expired token");
+			throw new JOSEException(MSG_EXPIRED_TOKEN);
 		}
 
 		return claimsSet;
