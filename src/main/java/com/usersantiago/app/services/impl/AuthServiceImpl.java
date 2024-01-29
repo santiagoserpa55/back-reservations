@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
 import com.usersantiago.app.persistence.repositories.UserRepository;
 import com.usersantiago.app.services.IAuthService;
@@ -18,6 +19,7 @@ import com.usersantiago.app.services.models.validations.UserValidations;
 @Service
 public class AuthServiceImpl implements IAuthService {
 	static final String MSG_USER_EXISTS = "User already exists!";
+	static final String MSG_NO_USERS = "No existe";
 	private UserRepository userRepository;
 	private IJWTUtilityService jwtUtilityService;
 	private UserValidations userValidations;
@@ -71,13 +73,8 @@ public class AuthServiceImpl implements IAuthService {
 
 			List<UserEntity> getAllUsers = userRepository.findAll();
 			// for no optimizado
-			for (UserEntity repeatFields : getAllUsers) {
-				if (repeatFields != null) {
-					response.setNumOfErrors(1);
-					response.setMessage(MSG_USER_EXISTS);
-					return response;
-				}
-			}
+			
+			
 
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 			user.setPassword(encoder.encode(user.getPassword()));
