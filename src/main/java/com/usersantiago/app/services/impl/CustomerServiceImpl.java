@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.usersantiago.app.persistence.entities.CustomerEntity;
@@ -28,7 +29,9 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Override
 	public Integer saveCustomer(CustomerEntity customer) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 		Date now = new Date();
+		customer.setPassword(encoder.encode(customer.getPassword()));
 		
 		return jdbcInsert.executeAndReturnKey(new MapSqlParameterSource()
 				.addValue("tipo_document", customer.getTipoDocument())
