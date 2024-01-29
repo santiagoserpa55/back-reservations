@@ -2,6 +2,7 @@ package com.usersantiago.app.services;
 
 import java.util.List;
 
+import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
 
 public interface IUserService {

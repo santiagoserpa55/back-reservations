@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
+import com.usersantiago.app.persistence.repositories.ICustomerService;
 import com.usersantiago.app.services.IAuthService;
 import com.usersantiago.app.services.models.dtos.LoginDTO;
 import com.usersantiago.app.services.models.dtos.ResponseDTO;
@@ -19,9 +21,16 @@ import com.usersantiago.app.services.models.dtos.ResponseDTO;
 public class AuthControllers {
 
 	private IAuthService authService;
+	private ICustomerService customerService;
 
-	public AuthControllers(IAuthService authService) {
+	public AuthControllers(IAuthService authService, ICustomerService customerService) {
 		this.authService = authService;
+		this.customerService = customerService;
+	}
+	
+	@PostMapping("/create-customer")
+	private ResponseEntity<Integer> saveCustomer(@RequestBody CustomerEntity customer) throws Exception {
+		return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/register")

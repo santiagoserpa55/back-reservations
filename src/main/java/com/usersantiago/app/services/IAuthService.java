@@ -2,6 +2,7 @@ package com.usersantiago.app.services;
 
 import java.util.HashMap;
 
+import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
 import com.usersantiago.app.services.models.dtos.LoginDTO;
 import com.usersantiago.app.services.models.dtos.ResponseDTO;

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {

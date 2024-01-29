@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
 import com.usersantiago.app.persistence.repositories.UserRepository;
 import com.usersantiago.app.services.IUserService;

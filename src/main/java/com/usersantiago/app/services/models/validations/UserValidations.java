@@ -1,5 +1,6 @@
 package com.usersantiago.app.services.models.validations;
 
+import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
 import com.usersantiago.app.services.models.dtos.ResponseDTO;
 
