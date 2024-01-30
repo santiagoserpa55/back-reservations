@@ -1,12 +1,11 @@
 package com.usersantiago.app.services.models.validations;
 
 import com.usersantiago.app.persistence.entities.CustomerEntity;
-import com.usersantiago.app.persistence.entities.UserEntity;
 import com.usersantiago.app.services.models.dtos.ResponseDTO;
 
 public class UserValidations {
 
-	public ResponseDTO validate(UserEntity user) {
+	public ResponseDTO validate(CustomerEntity user) {
 		ResponseDTO response = new ResponseDTO();
 
 		response.setNumOfErrors(0);
