@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
-import com.usersantiago.app.persistence.repositories.ICustomerService;
+import com.usersantiago.app.persistence.repositories.CustomerRepository;
 import com.usersantiago.app.services.IUserService;
 
 @RestController
