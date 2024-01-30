@@ -16,8 +16,14 @@ public class CustomerEntity extends PersonEntity {
 	private Date createdAt;
 	private Date updatedAt;
 	private int rol;
+	
+	
 
 	public CustomerEntity() {
+		super();
+	}
+
+	public CustomerEntity(Integer customer_id, String email, String pass) {
 	}
 
 	public CustomerEntity(Integer idCustomer, byte active, Date createdAt, Date updatedAt, int rol) {
@@ -27,6 +33,14 @@ public class CustomerEntity extends PersonEntity {
 		this.updatedAt = updatedAt;
 		this.rol = rol;
 	}
+
+
+
+	
+	
+//	public Integer getIdCustomer() {
+//		return idCustomer;
+//	}
 
 	public Integer getIdCustomer() {
 		return idCustomer;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.persistence.entities.UserEntity;
+import com.usersantiago.app.persistence.repositories.CustomerRepository;
 import com.usersantiago.app.persistence.repositories.UserRepository;
 import com.usersantiago.app.services.IAuthService;
 import com.usersantiago.app.services.IJWTUtilityService;
@@ -91,5 +92,4 @@ public class AuthServiceImpl implements IAuthService {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();// bean que creamos en SecurityConfig
 		return encoder.matches(enteredPassword, storedPassword);
 	}
-
 }

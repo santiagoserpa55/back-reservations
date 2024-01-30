@@ -25,12 +25,12 @@ public class SecurityConfig {
 	public SecurityConfig(IJWTUtilityService jwtUtilityService) {
 		this.jwtUtilityService = jwtUtilityService;
 	}
-
+//api/v1/customers/create
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(
-						authRequest -> authRequest.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())//add roles
+						authRequest -> authRequest.requestMatchers("/api/v1/customers/**").permitAll().anyRequest().authenticated())//add roles
 				.sessionManagement(
 						sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(new JWTAuthorizationFilter((JWTUtilityServiceImpl) jwtUtilityService),
