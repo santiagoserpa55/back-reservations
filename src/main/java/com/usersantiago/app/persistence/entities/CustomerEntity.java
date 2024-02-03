@@ -2,13 +2,6 @@ package com.usersantiago.app.persistence.entities;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 public class CustomerEntity extends PersonEntity {
 
 	private Integer idCustomer;

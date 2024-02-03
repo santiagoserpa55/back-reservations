@@ -19,22 +19,6 @@ public class DatabaseConfig {
 		return DataSourceBuilder.create().build();
 	}
 
-
-//	@Bean
-//	
-//	public DataSource getDataSource() { 
-//	    DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create(); 
-//	    dataSourceBuilder.username("root"); 
-//	    dataSourceBuilder.password("@Fedora27-"); 
-//	    return dataSourceBuilder.build(); 
-//	}
-//	
-//
-//	@Bean
-//	public DataSource getDataSource() {
-//		return DataSourceBuilder.create().build();
-//	}
-
 	@Bean
 	public JdbcTemplate appSecurityJdbcTemplate(DataSource appDataSource) {
 		var jdbcTemplate = new JdbcTemplate(appDataSource);
