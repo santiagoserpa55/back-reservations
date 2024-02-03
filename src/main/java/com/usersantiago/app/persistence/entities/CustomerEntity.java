@@ -16,8 +16,6 @@ public class CustomerEntity extends PersonEntity {
 	private Date createdAt;
 	private Date updatedAt;
 	private int rol;
-	
-	
 
 	public CustomerEntity() {
 		super();
@@ -33,14 +31,6 @@ public class CustomerEntity extends PersonEntity {
 		this.updatedAt = updatedAt;
 		this.rol = rol;
 	}
-
-
-
-	
-	
-//	public Integer getIdCustomer() {
-//		return idCustomer;
-//	}
 
 	public Integer getIdCustomer() {
 		return idCustomer;
@@ -81,7 +71,5 @@ public class CustomerEntity extends PersonEntity {
 	public void setRol(int rol) {
 		this.rol = rol;
 	}
-	
 
-	
 }
