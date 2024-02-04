@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 import com.usersantiago.app.persistence.entities.CustomerEntity;
+import com.usersantiago.app.services.models.dtos.CustomerCreationDTO;
 import com.usersantiago.app.services.models.dtos.CustomerDTO;
 
 @Component
@@ -20,7 +21,6 @@ public class Mapper {
 		Date birthdate = customerEntity.getBirthdate();
 		return new CustomerDTO(tipoDocument, document, firstName, lastName, phone, email, birthdate);
 	}
-	
 	
 	
 

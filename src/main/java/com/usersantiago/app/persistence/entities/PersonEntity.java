@@ -15,16 +15,23 @@ public class PersonEntity {
 	public PersonEntity() {
 	}
 
-	public PersonEntity(String tipoDocument, String document, String firstName, String lastName, Date birthdate, String phone,
-			String email, String password) {
+	public PersonEntity(
+			String tipoDocument,
+			String document,
+			String firstName,
+			String lastName,
+			String phone,
+			String email,
+			String password,
+			Date birthdate) {
 		this.tipoDocument = tipoDocument;
 		this.document = document;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.birthdate = birthdate;
 		this.phone = phone;
 		this.email = email;
 		this.password = password;
+		this.birthdate = birthdate;
 	}
 
 	public String getTipoDocument() {
