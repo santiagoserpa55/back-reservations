@@ -50,7 +50,8 @@ public class CustomerRepository {
 	}
 
 	public List<CustomerEntity> getAllCustomers() {
-		var querySqlSelectAll = "SELECT * FROM " + table;
+		var querySqlSelectAll = "SELECT customer_id, tipo_document, document,first_name, last_name, "
+				+ "phone, email, password, birthdate FROM " + table;
 		return jdbcTemplate.query(querySqlSelectAll, rowMapper);
 	}
 	
@@ -85,7 +86,9 @@ public class CustomerRepository {
 			}
 			
 			if (verifyPassword(customer.password(), usersByEmail.get().getPassword())) {
-
+				String data = usersByEmail.get().getTipoDocument().concat(usersByEmail.get().getDocument());
+				jwt.put("data", data);
+				
 				jwt.put("jwt", jwtUtilityService.generateJWT(usersByEmail.get().getIdCustomer()));
 			} else {
 				jwt.put("error", "Authentication failed!");
@@ -104,6 +107,13 @@ public class CustomerRepository {
 	private boolean verifyPassword(String enteredPassword, String storedPassword) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();// bean que creamos en SecurityConfig
 		return encoder.matches(enteredPassword, storedPassword);
+	}
+
+	public boolean existsCustomerWithDocument(String document) {
+		String sql = "SELECT COUNT(customer_id) FROM customer WHERE document = :document";
+		Map<String, Object> paramMap = Collections.singletonMap("document", document);
+		Integer count = jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+		return count != null && count > 0;
 	}
 
 }

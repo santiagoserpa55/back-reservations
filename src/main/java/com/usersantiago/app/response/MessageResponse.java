@@ -1,4 +1,4 @@
-package com.usersantiago.app;
+package com.usersantiago.app.response;
 
 public record MessageResponse(String message) {
 

@@ -14,7 +14,7 @@ public class CorsConfig implements WebMvcConfigurer {
 				.allowedHeaders("Origin", "Content-type", "Accept", "Authorization").allowCredentials(true)
 				.maxAge(3600);
 		
-		registry.addMapping("/auth/**")
+		registry.addMapping("/api/v1/customers/**")
 				.allowedOrigins("*")
 				.allowedMethods("OPTIONS","POST")
 				.allowedHeaders("Origin", "Content-Type","Accept", "Authorization")
