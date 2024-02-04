@@ -52,4 +52,8 @@ public class CustomerService {
 		return customerRepository.existsCustomerWithEmail(email);
 	}
 
+	public boolean existsByDocument(String document) {
+		return customerRepository.existsCustomerWithDocument(document);
+	}
+
 }

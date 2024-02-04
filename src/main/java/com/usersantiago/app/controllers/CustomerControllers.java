@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.usersantiago.app.MessageResponse;
 import com.usersantiago.app.api.Mapper;
 import com.usersantiago.app.persistence.entities.CustomerEntity;
+import com.usersantiago.app.response.MessageResponse;
 import com.usersantiago.app.services.CustomerService;
 import com.usersantiago.app.services.models.dtos.CustomerCreationDTO;
 import com.usersantiago.app.services.models.dtos.CustomerDTO;
@@ -38,13 +38,18 @@ public class CustomerControllers {
 		return customerService.getAllCustomers().stream().map(mapper::toDTO).collect(toList());
 	}
 
-	@PostMapping("/create")
+	@PostMapping("/signup")
 	private ResponseEntity<?> saveCustomer(@RequestBody CustomerCreationDTO requestNewCustomer) throws Exception {
+		if (customerService.existsByDocument(requestNewCustomer.document())) {
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Document is already in use!"));
+		}
+		
 		if (customerService.existsByEmail(requestNewCustomer.email())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));	
 		}
+		
 		customerService.saveCustomer(requestNewCustomer);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(new MessageResponse("User registered successfully!"));
 	}
 
 	@PostMapping("/signin")
