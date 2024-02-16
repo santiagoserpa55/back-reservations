@@ -2,6 +2,7 @@ package com.usersantiago.app.controllers;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +29,19 @@ public class CustomerControllers {
 	private CustomerService customerService;
 	private Mapper mapper;
 
-	public CustomerControllers(CustomerService customerService, Mapper mapper) {
+	private CustomerControllers(CustomerService customerService, Mapper mapper) {
 		this.customerService = customerService;
 		this.mapper = mapper;
 	}
 
 	@GetMapping("/get-all")
-	public List<CustomerDTO> getAllCustomers() {
-		return customerService.getAllCustomers().stream().map(mapper::toDTO).collect(toList());
+	private ResponseEntity<?> getAllCustomers() {
+		Optional<List<CustomerEntity>> response = Optional.of(customerService.getAllCustomers());
+
+		return ResponseEntity.ok().body(new ResponseEntity<>(response.stream()
+				//.map(mapper::toDTO)
+				.collect(toList()), HttpStatus.ACCEPTED)
+		);
 	}
 
 	@PostMapping("/signup")
@@ -43,11 +49,11 @@ public class CustomerControllers {
 		if (customerService.existsByDocument(requestNewCustomer.document())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Document is already in use!"));
 		}
-		
+
 		if (customerService.existsByEmail(requestNewCustomer.email())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));	
+			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
 		}
-		
+
 		customerService.saveCustomer(requestNewCustomer);
 		return ResponseEntity.ok().body(new MessageResponse("User registered successfully!"));
 	}
