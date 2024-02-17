@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: security-app
+datasource:
+  customs:
+    query-timeout: 20
+  my-connection:
+    jdbc-url: jdbc:mysql://localhost:3306/appsecurity?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrival=true
+    username: root
+    password: '@Fedora27-'
+    maximum-pool-size: 10
+    pool-name: "security-pool"
+    auto-commit: true
+    
+jwtKeys:
+  privateKeyPath: jwtKeys/private.key.pem
+  publicKeyPath: jwtKeys/public.key.pem
+

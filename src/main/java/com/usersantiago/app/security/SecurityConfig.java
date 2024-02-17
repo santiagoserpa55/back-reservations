@@ -23,15 +23,16 @@ public class SecurityConfig {
 	private IJWTUtilityService jwtUtilityService;
 
 	public SecurityConfig(IJWTUtilityService jwtUtilityService) {
-		super();
 		this.jwtUtilityService = jwtUtilityService;
 	}
 
+//api/v1/customers/create
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(
-						authRequest -> authRequest.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(authRequest -> authRequest
+						.requestMatchers("/api/v1/auth/**").permitAll()
+						.anyRequest().authenticated())// add roles
 				.sessionManagement(
 						sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(new JWTAuthorizationFilter((JWTUtilityServiceImpl) jwtUtilityService),
@@ -43,8 +44,15 @@ public class SecurityConfig {
 				.build();
 	}
 
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(); // quiza este bean este duplicado, lo consideraremos mas adelante
+	}
+	
+
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
