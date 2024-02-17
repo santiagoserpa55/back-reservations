@@ -1,28 +1,23 @@
 package com.usersantiago.app.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.usersantiago.app.api.Mapper;
-import com.usersantiago.app.persistence.entities.CustomerEntity;
-import com.usersantiago.app.response.MessageResponse;
+
 import com.usersantiago.app.services.CustomerService;
-import com.usersantiago.app.services.models.dtos.CustomerCreationDTO;
 import com.usersantiago.app.services.models.dtos.CustomerDTO;
-import com.usersantiago.app.services.models.dtos.LoginDTO;
 
 import static java.util.stream.Collectors.toList;
 
 @RestController
+
 @RequestMapping("/api/v1/customers")
 public class CustomerControllers {
 
@@ -34,38 +29,14 @@ public class CustomerControllers {
 		this.mapper = mapper;
 	}
 
-	@GetMapping("/get-all")
-	private ResponseEntity<?> getAllCustomers() {
-		Optional<List<CustomerEntity>> response = Optional.of(customerService.getAllCustomers());
+	@GetMapping("/all")
+	private Map<String, List<CustomerDTO>> getAllCustomers() {
+		List<CustomerDTO> customerDTOs = customerService.getAllCustomers().stream().map(mapper::toDTO)
+				.collect(toList());
 
-		return ResponseEntity.ok().body(new ResponseEntity<>(response.stream()
-				//.map(mapper::toDTO)
-				.collect(toList()), HttpStatus.ACCEPTED)
-		);
+		// Crear un mapa con la clave "customers" y la lista de DTO de clientes como valor
+		Map<String, List<CustomerDTO>> result = Map.of("data", customerDTOs);
+
+		return result;
 	}
-
-	@PostMapping("/signup")
-	private ResponseEntity<?> saveCustomer(@RequestBody CustomerCreationDTO requestNewCustomer) throws Exception {
-		if (customerService.existsByDocument(requestNewCustomer.document())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Document is already in use!"));
-		}
-
-		if (customerService.existsByEmail(requestNewCustomer.email())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
-		}
-
-		customerService.saveCustomer(requestNewCustomer);
-		return ResponseEntity.ok().body(new MessageResponse("User registered successfully!"));
-	}
-
-	@PostMapping("/signin")
-	private ResponseEntity<HashMap<String, String>> signin(@RequestBody LoginDTO customer) throws Exception {
-		HashMap<String, String> login = customerService.signin(customer);
-		if (login.containsKey("jwt")) {
-			return new ResponseEntity<>(login, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(login, HttpStatus.UNAUTHORIZED);
-		}
-	}
-
 }

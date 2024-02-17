@@ -1,6 +1,9 @@
 HELP.md
 .gradle
 build/
+*.pem
+*.yml
+src/main/resources/**
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
