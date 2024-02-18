@@ -51,7 +51,7 @@ public class CustomerRepository {
 
 	public List<CustomerEntity> getAllCustomers() {
 		var querySqlSelectAll = "SELECT customer_id, tipo_document, document,first_name, last_name, "
-				+ "phone, email, password, birthdate FROM " + table;
+				+ "phone, email, password, birthdate FROM " + table + " WHERE active = 1";
 		return jdbcTemplate.query(querySqlSelectAll, rowMapper);
 	}
 	
