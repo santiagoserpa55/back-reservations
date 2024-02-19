@@ -19,7 +19,8 @@ public class CustomerRowMapper implements RowMapper<CustomerEntity> {
 		customer.setDocument(rs.getString("document"));
 		customer.setFirstName(rs.getString("first_name"));
 		customer.setLastName(rs.getString("last_name"));
-		customer.setBirthdate(rs.getDate("birthdate"));
+		//customer.setBirthdate(rs.getBirthdate("birthdate").);
+		customer.setBirthdate(rs.getDate("birthdate").toLocalDate());
 		customer.setPhone(rs.getString("phone"));
 		customer.setEmail(rs.getString("email"));
 		customer.setPassword(rs.getString("password"));

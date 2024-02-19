@@ -1,13 +1,13 @@
 package com.usersantiago.app.persistence.entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class PersonEntity {
 	private String tipoDocument;
 	private String document;
 	private String firstName;
 	private String lastName;
-	private Date birthdate;
+	private LocalDate birthdate;
 	private String phone;
 	private String email;
 	private String password;
@@ -23,7 +23,7 @@ public class PersonEntity {
 			String phone,
 			String email,
 			String password,
-			Date birthdate) {
+			LocalDate birthdate) {
 		this.tipoDocument = tipoDocument;
 		this.document = document;
 		this.firstName = firstName;
@@ -66,11 +66,11 @@ public class PersonEntity {
 		this.lastName = lastName;
 	}
 
-	public Date getBirthdate() {
+	public LocalDate getBirthdate() {
 		return birthdate;
 	}
 	
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
 	}
 	
