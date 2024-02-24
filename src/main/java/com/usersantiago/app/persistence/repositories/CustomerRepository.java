@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -86,7 +85,10 @@ public class CustomerRepository {
 			}
 			
 			if (verifyPassword(customer.password(), usersByEmail.get().getPassword())) {
-				String data = usersByEmail.get().getTipoDocument().concat(usersByEmail.get().getDocument());
+				String data = usersByEmail.get().getTipoDocument()
+						.concat(usersByEmail.get().getDocument()
+						.concat(usersByEmail.get().getIdCustomer().toString()));
+				
 				jwt.put("data", data);
 				
 				jwt.put("jwt", jwtUtilityService.generateJWT(usersByEmail.get().getIdCustomer()));
