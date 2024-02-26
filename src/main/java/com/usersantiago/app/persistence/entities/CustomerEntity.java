@@ -1,13 +1,14 @@
 package com.usersantiago.app.persistence.entities;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDate;
 
 public class CustomerEntity extends PersonEntity {
 
 	private Integer idCustomer;
 	private byte active;
-	private Date createdAt;
-	private Date updatedAt;
+	private Instant createdAt;
+	private Instant updatedAt;
 	private int rol;
 
 	public CustomerEntity() {
@@ -17,7 +18,7 @@ public class CustomerEntity extends PersonEntity {
 	public CustomerEntity(Integer customer_id, String email, String pass) {
 	}
 
-	public CustomerEntity(Integer idCustomer, byte active, Date createdAt, Date updatedAt, int rol) {
+	public CustomerEntity(Integer idCustomer, byte active, Instant createdAt, Instant updatedAt, int rol) {
 		this.idCustomer = idCustomer;
 		this.active = active;
 		this.createdAt = createdAt;
@@ -26,7 +27,7 @@ public class CustomerEntity extends PersonEntity {
 	}
 
 	public CustomerEntity(String tipoDocument, String document, String firstName, String lastName, String phone,
-			String email, String password, Date birthdate) {
+			String email, String password, LocalDate birthdate) {
 	    super(tipoDocument, document, firstName, lastName, phone, email, password, birthdate);
 	}
 
@@ -38,15 +39,15 @@ public class CustomerEntity extends PersonEntity {
 		return active;
 	}
 
-	public Date getCreatedAt(Date date) {
+	public Instant getCreatedAt(Instant date) {
 		return createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public Instant getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(Instant updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
@@ -62,7 +63,7 @@ public class CustomerEntity extends PersonEntity {
 		this.active = active;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
 

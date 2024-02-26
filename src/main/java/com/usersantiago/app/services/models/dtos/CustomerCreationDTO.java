@@ -1,6 +1,6 @@
 package com.usersantiago.app.services.models.dtos;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record CustomerCreationDTO(
 		String tipoDocument,
@@ -10,5 +10,5 @@ public record CustomerCreationDTO(
 		String phone,
 		String email,
 		String password,
-		Date birthdate) {
+		LocalDate birthdate) {
 }
