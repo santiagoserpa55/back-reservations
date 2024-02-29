@@ -20,7 +20,4 @@ public class Mapper {
 		LocalDate birthdate = customerEntity.getBirthdate();
 		return new CustomerDTO(tipoDocument, document, firstName, lastName, phone, email, birthdate);
 	}
-	
-	
-
 }

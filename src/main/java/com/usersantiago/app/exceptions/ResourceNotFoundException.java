@@ -3,9 +3,11 @@ package com.usersantiago.app.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.CONFLICT)
-public class DuplicateResourceException extends RuntimeException {
-    public DuplicateResourceException(String message) {
+@ResponseStatus(code = HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException {
+
+
+	public ResourceNotFoundException(String message) {
         super(message);
     }
 }
