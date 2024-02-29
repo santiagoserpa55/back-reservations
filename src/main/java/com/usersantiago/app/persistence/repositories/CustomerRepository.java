@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.services.IJWTUtilityService;
 import com.usersantiago.app.services.IcustomerDAO;
+import com.usersantiago.app.services.models.dtos.CustomerCreationDTO;
 import com.usersantiago.app.services.models.dtos.CustomerRowMapper;
 import com.usersantiago.app.services.models.dtos.LoginDTO;
 
@@ -40,15 +41,13 @@ public class CustomerRepository implements IcustomerDAO {
 		this.jdbcTemplatequerys = jdbcTemplateQuerys;
 	}
 
-	public Integer saveCustomer(CustomerEntity customer) {
-		Date now = new Date();
+	public Integer saveCustomer(CustomerCreationDTO customer) {
 		return jdbcInsert
-				.executeAndReturnKey(new MapSqlParameterSource().addValue("tipo_document", customer.getTipoDocument())
-						.addValue("document", customer.getDocument()).addValue("first_name", customer.getFirstName())
-						.addValue("last_name", customer.getLastName()).addValue("phone", customer.getPhone())
-						.addValue("email", customer.getEmail()).addValue("password", customer.getPassword())
-						.addValue("birthdate", customer.getBirthdate()).addValue("rol", 1).addValue("active", 1)
-						.addValue("created_at", new Date()).addValue("updated_at", new Date()))
+				.executeAndReturnKey(new MapSqlParameterSource().addValue("tipo_document", customer.tipoDocument())
+						.addValue("document", customer.document()).addValue("first_name", customer.firstName())
+						.addValue("last_name", customer.lastName()).addValue("phone", customer.phone())
+						.addValue("email", customer.email()).addValue("password", customer.password())
+						.addValue("birthdate", customer.birthdate()))
 				.intValue();
 	}
 
