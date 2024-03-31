@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=santiago
+      - POSTGRES_PASSWORD=@Debian27
+      - POSTGRES_DB=appsecurity
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "ss5gc4@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "santiago"
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+  adminer:
+   image: adminer
+   ports:
+   - 8081:8084
