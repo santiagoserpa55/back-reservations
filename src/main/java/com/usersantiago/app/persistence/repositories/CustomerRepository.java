@@ -1,7 +1,6 @@
 package com.usersantiago.app.persistence.repositories;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +19,7 @@ import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.services.IJWTUtilityService;
 import com.usersantiago.app.services.IcustomerDAO;
 import com.usersantiago.app.services.models.dtos.CustomerCreationDTO;
+import com.usersantiago.app.services.models.dtos.CustomerDTO;
 import com.usersantiago.app.services.models.dtos.CustomerRowMapper;
 import com.usersantiago.app.services.models.dtos.LoginDTO;
 
@@ -73,9 +73,9 @@ public class CustomerRepository implements IcustomerDAO {
 		return jdbcTemplate.query(sql, paramMap, rowMapper).stream().findFirst();
 	}
 
-	public HashMap<String, String> signin(LoginDTO customer) throws Exception {
+	public HashMap<String, Object> signin(LoginDTO customer) throws Exception {
 		try {
-			HashMap<String, String> jwt = new HashMap<>();
+			HashMap<String, Object> jwt = new HashMap<>();
 			Optional<CustomerEntity> usersByEmail = selectUserByEmail(customer.email());
 
 			if (usersByEmail.isEmpty()) {
@@ -84,12 +84,17 @@ public class CustomerRepository implements IcustomerDAO {
 			}
 
 			if (verifyPassword(customer.password(), usersByEmail.get().getPassword())) {
-				String data = usersByEmail.get().getTipoDocument()
-						.concat(usersByEmail.get().getDocument().concat(usersByEmail.get().getIdCustomer().toString()));
-
-				jwt.put("data", data);
-
+				CustomerDTO customerDTO;
+				 customerDTO = new CustomerDTO(usersByEmail.get().getTipoDocument(),
+						usersByEmail.get().getDocument(),
+						usersByEmail.get().getFirstName(),
+						usersByEmail.get().getLastName(),
+						usersByEmail.get().getPhone(),
+						usersByEmail.get().getEmail(),
+						usersByEmail.get().getBirthdate());				
+				jwt.put("data", customerDTO);
 				jwt.put("jwt", jwtUtilityService.generateJWT(usersByEmail.get().getIdCustomer()));
+				
 			} else {
 				jwt.put("error", "Authentication failed!");
 			}

@@ -101,7 +101,30 @@ FROM
 WHERE
 	first_name = 'SANTIAGO';
 
--- FALTANTES --
+-- RESERVATIONS TABLE  --
+
+CREATE TABLE IF NOT EXISTS public.reservations
+(
+    reservation_id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
+    date_reserva timestamp(6) without time zone NOT NULL,
+    tipo_reserva character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    quantity_persons smallint NOT NULL,
+    observations text COLLATE pg_catalog."default",
+    active smallint DEFAULT 1,
+    created_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    customer_id_reserva integer,
+    CONSTRAINT reservations_pkey PRIMARY KEY (reservation_id),
+    CONSTRAINT reservations_customer_id_reserva_fkey FOREIGN KEY (customer_id_reserva)
+        REFERENCES public.customer (customer_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT reservations_tipo_reserva_check CHECK (tipo_reserva::text = ANY (ARRAY['CENA'::character varying, 'ALMUERZO'::character varying,
+    'ONCES'::character varying, 'CUMPLEAÑOS'::character varying, 'OCASION ESPECIAL'::character varying, 'OTRO'::character varying]::text[])),
+    CONSTRAINT reservations_quantity_persons_check CHECK (quantity_persons > 0)
+)
+
+
 -- FUNCTION: public.getMaxDate()
 
 -- DROP FUNCTION IF EXISTS public."getMaxDate"();
@@ -137,7 +160,9 @@ CREATE OR REPLACE FUNCTION public.fu_obtener_edad(
     VOLATILE PARALLEL UNSAFE
 AS $BODY$
 BEGIN
-pn_edad := FLOOR(((DATE_PART('YEAR',pd_fecha_fin)-DATE_PART('YEAR',pd_fecha_ini))* 372 + (DATE_PART('MONTH',pd_fecha_fin) - DATE_PART('MONTH',pd_fecha_ini))*31 + (DATE_PART('DAY',pd_fecha_fin)-DATE_PART('DAY',pd_fecha_ini)))/372);
+pn_edad := FLOOR(((DATE_PART('YEAR',pd_fecha_fin) - DATE_PART('YEAR',pd_fecha_ini)) * 372 +
+(DATE_PART('MONTH',pd_fecha_fin) - DATE_PART('MONTH',pd_fecha_ini))*31 +
+(DATE_PART('DAY',pd_fecha_fin)-DATE_PART('DAY',pd_fecha_ini)))/372);
 END;
 $BODY$;
 
@@ -169,34 +194,8 @@ CREATE OR REPLACE TRIGGER customer_updated_at_trigger
 
 
 
--- RESERVATIONS -
--- Table: public.reservations
 
--- DROP TABLE IF EXISTS public.reservations;
 
-CREATE TABLE IF NOT EXISTS public.reservations
-(
-    reservation_id integer NOT NULL DEFAULT nextval('reservations_reservation_id_seq'::regclass),
-    date_reserva timestamp(6) without time zone NOT NULL,
-    tipo_reserva character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    quantity_persons smallint NOT NULL,
-    observations text COLLATE pg_catalog."default",
-    active smallint DEFAULT 1,
-    created_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    customer_id_reserva integer,
-    CONSTRAINT reservations_pkey PRIMARY KEY (reservation_id),
-    CONSTRAINT reservations_customer_id_reserva_fkey FOREIGN KEY (customer_id_reserva)
-        REFERENCES public.customer (customer_id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT reservations_tipo_reserva_check CHECK (tipo_reserva::text = ANY (ARRAY['CENA'::character varying, 'ALMUERZO'::character varying, 'ONCES'::character varying, 'CUMPLEAÑOS'::character varying, 'OCASION ESPECIAL'::character varying, 'OTRO'::character varying]::text[])),
-    CONSTRAINT reservations_quantity_persons_check CHECK (quantity_persons > 0)
-)
-
-TABLESPACE pg_default;
-
--- si señor --
 
 
 

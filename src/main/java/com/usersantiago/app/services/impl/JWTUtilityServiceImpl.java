@@ -13,6 +13,8 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
 
@@ -75,12 +77,18 @@ public class JWTUtilityServiceImpl implements IJWTUtilityService {
 
 		JWTClaimsSet claimsSet = signedJWT.getJWTClaimsSet();
 
-		if (claimsSet.getExpirationTime().before(new Date())) {
-			throw new JOSEException(MSG_EXPIRED_TOKEN);
+		LocalDateTime currentDateTime = LocalDateTime.now();
+
+		// Convertir la fecha de expiración del token (Date) a LocalDateTime
+		Date expirationDate = claimsSet.getExpirationTime();
+		LocalDateTime expirationDateTime = expirationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+		// Comparar las fechas
+		if (expirationDateTime.isBefore(currentDateTime)) {
+		    throw new JOSEException(MSG_EXPIRED_TOKEN);
 		}
-
+		
 		return claimsSet;
-
 	}
 
 	private PrivateKey loadPrivateKey(Resource resource)

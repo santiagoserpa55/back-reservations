@@ -49,8 +49,8 @@ public class AuthCustomerControllers {
 	}
 
 	@PostMapping("/signin")
-	private ResponseEntity<HashMap<String, String>> signin(@RequestBody LoginDTO customer) throws Exception {
-		HashMap<String, String> login = customerService.signin(customer);
+	private ResponseEntity<HashMap<String, Object>> signin(@RequestBody LoginDTO customer) throws Exception {
+		HashMap<String, Object> login = customerService.signin(customer);
 		if (login.containsKey("jwt")) {
 			return new ResponseEntity<>(login, HttpStatus.OK);
 		} else {

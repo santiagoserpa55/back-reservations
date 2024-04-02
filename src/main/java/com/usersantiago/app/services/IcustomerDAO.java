@@ -15,5 +15,5 @@ public interface IcustomerDAO {
 	Integer saveCustomer(CustomerCreationDTO newCustomer);
 	boolean existsCustomerWithDocument(String document);
 	boolean existsCustomerWithEmail(String email);
-	HashMap<String, String> signin(LoginDTO customer) throws Exception;
+	HashMap<String, Object> signin(LoginDTO customer) throws Exception;
 }

@@ -39,7 +39,7 @@ public class CustomerService {
 
 	}
 
-	public HashMap<String, String> signin(LoginDTO customer) throws Exception {
+	public HashMap<String, Object> signin(LoginDTO customer) throws Exception {
 		return customerDAO.signin(customer);
 	}
 
