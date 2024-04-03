@@ -1,16 +1,17 @@
+\connect appsecurity;
 -- PostgreSQL Querys --
 -- ROL TABLE --
-CREATE SEQUENCE rol_rol_id_seq START WITH 1; -- seq for auto_incrememnt
+CREATE SEQUENCE rol_rol_id_seq START WITH 1;
 CREATE TABLE IF NOT EXISTS public.rol
 (
     rol_id integer NOT NULL DEFAULT nextval('rol_rol_id_seq'::regclass),
     name character varying(10) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT rol_pkey PRIMARY KEY (rol_id)
-)
+);
+
 -- CUSTOMER TABLE --
 CREATE sequence if not exists customer_customer_id_seq START WITH 1; -- seq for auto_incrememnt
-
-create table if not exists public.customer (
+CREATE TABLE IF NOT EXISTS public.customer (
 	customer_id integer NOT NULL DEFAULT nextval('customer_customer_id_seq'::regclass),
     tipo_document character varying(10) collate pg_catalog."default" not null,
     document character varying(15) collate pg_catalog."default" not null,
@@ -40,9 +41,9 @@ update
 		'VISA'::character varying]::text[])),
 		constraint customer_rol_check check (rol = any (array[1,
 		2]))
-)
+);
 -- DELETING CUSTOMER TABLE --
-DROP TABLE public.customer CASCADE;
+-- DROP TABLE public.customer CASCADE;
 
 -- FUNCTION FOR UDATE FIELDS CREATED, ACTIVE, ROL AND UPDATED, --
 CREATE OR REPLACE FUNCTION fill_customer()
@@ -78,6 +79,7 @@ EXECUTE FUNCTION update_customer_updated_at();
 
 
 -- querys --
+/*
 UPDATE public.customer
 	SET tipo_document='CC'
 	WHERE document = '1007517386';
@@ -99,7 +101,7 @@ SELECT
 FROM
 	customer
 WHERE
-	first_name = 'SANTIAGO';
+	first_name = 'SANTIAGO';*/
 
 -- RESERVATIONS TABLE  --
 
@@ -125,6 +127,7 @@ CREATE TABLE IF NOT EXISTS public.reservations
 )
 
 
+/*
 -- FUNCTION: public.getMaxDate()
 
 -- DROP FUNCTION IF EXISTS public."getMaxDate"();
@@ -196,6 +199,7 @@ CREATE OR REPLACE TRIGGER customer_updated_at_trigger
 
 
 
+*/
 
 
 
