@@ -55,7 +55,7 @@ public class JWTUtilityServiceImpl implements IJWTUtilityService {
 
 		Date now = new Date();
 		JWTClaimsSet claimsSet = new JWTClaimsSet.Builder().subject(userId.toString()).issueTime(now)
-				.expirationTime(new Date(now.getTime() + 14400000)).build();
+				.expirationTime(new Date(now.getTime() + 1440000)).build();
 		SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.RS256), claimsSet);
 		signedJWT.sign(signer);
 		return signedJWT.serialize();
