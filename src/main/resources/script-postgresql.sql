@@ -124,9 +124,13 @@ CREATE TABLE IF NOT EXISTS public.reservations
     CONSTRAINT reservations_tipo_reserva_check CHECK (tipo_reserva::text = ANY (ARRAY['CENA'::character varying, 'ALMUERZO'::character varying,
     'ONCES'::character varying, 'CUMPLEAÑOS'::character varying, 'OCASION ESPECIAL'::character varying, 'OTRO'::character varying]::text[])),
     CONSTRAINT reservations_quantity_persons_check CHECK (quantity_persons > 0)
-)
+);
 
-
+/*SELECT COUNT(reservation_id) FROM reservations where customer_id_reserva = ; 
+SELECT COUNT(customer_id)
+FROM customers
+WHERE city = 'London'; 
+*/
 /*
 -- FUNCTION: public.getMaxDate()
 
