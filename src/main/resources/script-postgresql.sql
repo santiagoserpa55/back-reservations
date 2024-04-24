@@ -76,35 +76,7 @@ CREATE TRIGGER customer_updated_at_trigger
 BEFORE UPDATE ON customer
 FOR EACH ROW
 EXECUTE FUNCTION update_customer_updated_at();
-
-
--- querys --
-/*
-UPDATE public.customer
-	SET tipo_document='CC'
-	WHERE document = '1007517386';
-	
-SELECT * FROM public.customer
-ORDER BY customer_id ASC
-
-DELETE FROM public.customer
-	WHERE customer_id = 27;
-
--- CALCULAR EDAD --
-SELECT first_name, AGE(CURRENT_TIMESTAMP, birthdate) age FROM customer;
-
-SELECT
-	first_name,
-	YEAR(CURDATE())-YEAR(birthdate) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(birthdate, '%m-%d'),
-	0 ,
-	-1 ) AS EDAD_ACTUAL
-FROM
-	customer
-WHERE
-	first_name = 'SANTIAGO';*/
-
--- RESERVATIONS TABLE  --
-
+-- Reservations Table --
 CREATE TABLE IF NOT EXISTS public.reservations
 (
     reservation_id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
@@ -125,17 +97,33 @@ CREATE TABLE IF NOT EXISTS public.reservations
     'ONCES'::character varying, 'CUMPLEAÑOS'::character varying, 'OCASION ESPECIAL'::character varying, 'OTRO'::character varying]::text[])),
     CONSTRAINT reservations_quantity_persons_check CHECK (quantity_persons > 0)
 );
-
+-- querys --
+/*
+UPDATE public.customer
+	SET last_name ='Smith'
+	WHERE document = '1007517385';
+SELECT * FROM public.customer
+ORDER BY customer_id ASC
+DELETE FROM public.customer
+	WHERE customer_id = 27;
+-- CALCULAR EDAD --
+SELECT first_name, AGE(CURRENT_TIMESTAMP, birthdate) age FROM customer;
+SELECT
+	first_name,
+	YEAR(CURDATE())-YEAR(birthdate) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(birthdate, '%m-%d'),
+	0 ,
+	-1 ) AS EDAD_ACTUAL
+FROM
+	customer
+WHERE
+	first_name = 'SANTIAGO';*/
+-- RESERVATIONS TABLE  --
 /*SELECT COUNT(reservation_id) FROM reservations where customer_id_reserva = ; 
 SELECT COUNT(customer_id)
 FROM customers
 WHERE city = 'London'; 
-*/
-/*
 -- FUNCTION: public.getMaxDate()
-
 -- DROP FUNCTION IF EXISTS public."getMaxDate"();
-
 CREATE OR REPLACE FUNCTION public."getMaxDate"()
     RETURNS date
     LANGUAGE 'plpgsql'
@@ -148,15 +136,11 @@ SELECT MIN(birthdate) INTO getMaxDate FROM customer;
 RETURN getMaxDate;
 END;
 $BODY$;
-
 ALTER FUNCTION public."getMaxDate"()
     OWNER TO santiago;
 ------ GET MAX DATE FIN
-
 -- FUNCTION: public.fu_obtener_edad(date, date)
-
 -- DROP FUNCTION IF EXISTS public.fu_obtener_edad(date, date);
-
 CREATE OR REPLACE FUNCTION public.fu_obtener_edad(
 	pd_fecha_ini date,
 	pd_fecha_fin date,
@@ -172,41 +156,22 @@ pn_edad := FLOOR(((DATE_PART('YEAR',pd_fecha_fin) - DATE_PART('YEAR',pd_fecha_in
 (DATE_PART('DAY',pd_fecha_fin)-DATE_PART('DAY',pd_fecha_ini)))/372);
 END;
 $BODY$;
-
 ALTER FUNCTION public.fu_obtener_edad(date, date)
     OWNER TO santiago;
-
 -- FIN OBTENER EDAD --
-
 -- Trigger: customer_insert_field_created_at
-
 -- DROP TRIGGER IF EXISTS customer_insert_field_created_at ON public.customer;
-
 CREATE OR REPLACE TRIGGER customer_insert_field_created_at
     BEFORE INSERT
     ON public.customer
     FOR EACH ROW
     EXECUTE FUNCTION public.insert_field_created_at_customer();
-
 -- Trigger: customer_updated_at_trigger
-
 -- DROP TRIGGER IF EXISTS customer_updated_at_trigger ON public.customer;
-
 CREATE OR REPLACE TRIGGER customer_updated_at_trigger
     BEFORE UPDATE 
     ON public.customer
     FOR EACH ROW
     EXECUTE FUNCTION public.update_customer_updated_at();
 -- FIN --
-
-
-
-
-
 */
-
-
-
-
-
-

@@ -1,6 +1,8 @@
 
 # Backend App Reservas
 
+Backend App Reservas se puede probar usando el FrontEnd en Angular 15: [BookingApp](https://gitlab.com/myfirstgroupp/bookingapp.git)
+
 Este proyecto se basa en una implementación de seguridad utilizando la librería [OpenSSL](https://www.openssl.org/) que explico el usuario [Daniel Espanadero](https://github.com/DanielEspanadero).
 
 El proyecto original lo pueden encontrar [aquí](https://github.com/DanielEspanadero/spring-security)
@@ -206,3 +208,11 @@ jwtKeys.publicKeyPath=jwtKeys/public.key.pem
 - Datos vacios (Nombres y apellidos, etc)
 - Verificación de email ya existente
 - Verificación de identificacion ya existente
+
+
+##### generate jar file
+```
+./gradlew jar
+java -jar security-app-0.0.1-SNAPSHOT.jar // path : /spring-workspace/security-app/build/libs$ java -jar security-app-0.0.1-SNAPSHOT.jar 
+
+```
