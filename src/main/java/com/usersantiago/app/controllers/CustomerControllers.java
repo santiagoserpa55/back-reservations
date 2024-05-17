@@ -26,22 +26,15 @@ public class CustomerControllers {
 	private CustomerService customerService;
 	private Mapper mapper;
 
-	private CustomerControllers(CustomerService customerService, Mapper mapper) {
-		this.customerService = customerService;
-		this.mapper = mapper;
-	}
-	
 	@GetMapping
-	private Map<String, List<CustomerDTO>> getAllCustomers() {
+	public Map<String, List<CustomerDTO>> getAllCustomers() {
 		List<CustomerDTO> customerDTOs = customerService.getAllCustomers().stream().map(mapper::toDTO)
 				.collect(toList());
-		Map<String, List<CustomerDTO>> result = Map.of("data", customerDTOs);
-
-		return result;
+		return Map.of("data", customerDTOs);
 	}
 	
 	@PutMapping("{document}")
-	private ResponseEntity<?> updateCustomer(
+	public ResponseEntity<?> updateCustomer(
 	    @PathVariable("document") String document,
 	    @RequestBody CustomerUpdateRequest updateRequest) {
 	    customerService.updateCustomer(document, updateRequest);

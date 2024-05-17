@@ -30,12 +30,12 @@ public class CustomerRepository implements IcustomerDAO {
 	private final JdbcTemplate jdbcTemplatequerys;
 	private final SimpleJdbcInsert jdbcInsert;
 	private IJWTUtilityService jwtUtilityService;
-	private final String table = "customer";
+	private static final String TABLE = "customer";
 
 	public CustomerRepository(NamedParameterJdbcTemplate jdbcTemplate, DataSource dataSource,
 			JdbcTemplate jdbcTemplateQuerys, IJWTUtilityService jwtUtilityService, CustomerRowMapper rowMapper) {
 		this.jdbcTemplate = jdbcTemplate;
-		this.jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName(table).usingGeneratedKeyColumns("customer_id");
+		this.jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE).usingGeneratedKeyColumns("customer_id");
 		this.jwtUtilityService = jwtUtilityService;
 		this.rowMapper = rowMapper;
 		this.jdbcTemplatequerys = jdbcTemplateQuerys;
@@ -53,7 +53,7 @@ public class CustomerRepository implements IcustomerDAO {
 
 	public List<CustomerEntity> getAllCustomers() {
 		var querySqlSelectAll = "SELECT customer_id, tipo_document, document,first_name, last_name, "
-				+ "phone, email, password, birthdate FROM " + table + " WHERE active = 1";
+				+ "phone, email, password, birthdate FROM " + TABLE + " WHERE active = 1";
 		return jdbcTemplate.query(querySqlSelectAll, rowMapper);
 	}
 
@@ -85,7 +85,9 @@ public class CustomerRepository implements IcustomerDAO {
 
 			if (verifyPassword(customer.password(), usersByEmail.get().getPassword())) {
 				CustomerDTO customerDTO;
-				 customerDTO = new CustomerDTO(usersByEmail.get().getTipoDocument(),
+				 customerDTO = new CustomerDTO(
+						usersByEmail.get().getIdCustomer(),
+						usersByEmail.get().getTipoDocument(),
 						usersByEmail.get().getDocument(),
 						usersByEmail.get().getFirstName(),
 						usersByEmail.get().getLastName(),

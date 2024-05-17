@@ -21,8 +21,7 @@ public class DatabaseConfig {
 
 	@Bean
 	public JdbcTemplate appSecurityJdbcTemplate(DataSource appDataSource) {
-		var jdbcTemplate = new JdbcTemplate(appDataSource);
-		return jdbcTemplate;
+		return new JdbcTemplate(appDataSource);
 	}
 
 	// este te permite trabajar con parametros mucho mas facil

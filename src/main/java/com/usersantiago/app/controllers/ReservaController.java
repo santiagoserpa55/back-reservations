@@ -20,14 +20,14 @@ import com.usersantiago.app.services.models.dtos.ReservationCreationDTO;
 public class ReservaController {
 
 	private ReservaService reservaService;
-	private final String REQUEST_CREATE_RESERVA = "/create";
+	private static final String REQUEST_CREATE_RESERVA = "/create";
 
 	public ReservaController(ReservaService reservaService) {
 		this.reservaService = reservaService;
 	}
 
 	@PostMapping(REQUEST_CREATE_RESERVA)
-	private ResponseEntity<?> createReserva(@RequestBody ReservationCreationDTO reservaRequest) {
+	public ResponseEntity<?> createReserva(@RequestBody ReservationCreationDTO reservaRequest) {
 		
 		reservaService.createReserva(reservaRequest);
 		return ResponseEntity.status(201).body((new MessageResponse("Reserva registrada existosamente!")));

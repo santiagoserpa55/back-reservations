@@ -35,7 +35,7 @@ public class AuthCustomerControllers {
 	}
 	
 	@PostMapping("/signup")
-	private ResponseEntity<?> saveCustomer(@RequestBody CustomerCreationDTO requestNewCustomer) throws Exception {
+	public ResponseEntity<?> saveCustomer(@RequestBody CustomerCreationDTO requestNewCustomer) {
 		if (customerService.existsByDocument(requestNewCustomer.document())) {
 			return ResponseEntity.status(409).body(new MessageResponse("Error: Document is already in use!"));
 		}
@@ -49,7 +49,7 @@ public class AuthCustomerControllers {
 	}
 
 	@PostMapping("/signin")
-	private ResponseEntity<HashMap<String, Object>> signin(@RequestBody LoginDTO customer) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> signin(@RequestBody LoginDTO customer) throws Exception {
 		HashMap<String, Object> login = customerService.signin(customer);
 		if (login.containsKey("jwt")) {
 			return new ResponseEntity<>(login, HttpStatus.OK);

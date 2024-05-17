@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.usersantiago.app.exceptions.RequestValidationException;
 import com.usersantiago.app.exceptions.ResourceNotFoundException;
 import com.usersantiago.app.persistence.entities.CustomerEntity;
-import com.usersantiago.app.persistence.repositories.CustomerRepository;
 import com.usersantiago.app.services.models.dtos.CustomerCreationDTO;
 import com.usersantiago.app.services.models.dtos.CustomerUpdateRequest;
 import com.usersantiago.app.services.models.dtos.LoginDTO;

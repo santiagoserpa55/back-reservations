@@ -11,13 +11,9 @@ public class ReservaService {
 
 	private ReservasRepository reservaRepository;
 	
-	
-	
 	public ReservaService(ReservasRepository reservaRepository) {
 		this.reservaRepository = reservaRepository;
 	}
-
-
 
 	public void createReserva(ReservationCreationDTO reservaRequest) {
 		ReservationEntity newReservation = new ReservationEntity(

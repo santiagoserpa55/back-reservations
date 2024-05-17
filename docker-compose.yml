@@ -1,15 +1,15 @@
-version: "3.8"
-services:
-  postgres:
-    image: postgres
-    restart: always
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./src/main/resources/script-postgresql.sql:/docker-entrypoint-initdb.d/create_tables.sql
-      
-    environment:
-      - DATABASE_HOST=127.0.0.1
-      - POSTGRES_USER=santiago
-      - POSTGRES_PASSWORD=@Debian27
-      - POSTGRES_DB=appsecurity
+#version: "3.8"
+#services:
+#  postgres:
+#    image: postgres
+#    restart: always
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - ./src/main/resources/script-postgresql.sql:/docker-entrypoint-initdb.d/create_tables.sql
+#      
+#    environment:
+#      - DATABASE_HOST=127.0.0.1
+#      - POSTGRES_USER=santiago
+#      - POSTGRES_PASSWORD=@Debian27
+#      - POSTGRES_DB=appsecurity
