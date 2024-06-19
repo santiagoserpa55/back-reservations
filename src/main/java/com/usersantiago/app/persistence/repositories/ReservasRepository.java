@@ -14,28 +14,27 @@ import com.usersantiago.app.persistence.entities.ReservationEntity;
 
 @Repository
 public class ReservasRepository {
-	private final NamedParameterJdbcTemplate jdbcTemplate;
-	private final SimpleJdbcInsert jdbcInsert;
-	private final String TABLE = "reservations";
+  private final NamedParameterJdbcTemplate jdbcTemplate;
+  private final SimpleJdbcInsert jdbcInsert;
+  private final String TABLE = "reservations";
 
-	public ReservasRepository(NamedParameterJdbcTemplate jdbcTemplate, DataSource dataSource) {
-		this.jdbcTemplate = jdbcTemplate;
-		this.jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE).usingGeneratedKeyColumns("reservation_id");
-	}
-	
-	
-	public Integer saveReserva(ReservationEntity reserva) {
-		return jdbcInsert.executeAndReturnKey(
-				new MapSqlParameterSource()
-				.addValue("date_reserva", reserva.getDateReserva())
-				.addValue("tipo_reserva", reserva.getTipoReserva())
-				.addValue("quantity_persons", reserva.getQuantityPersons())
-				.addValue("observations", reserva.getObservations())
-				.addValue("status_reserv", reserva.getStatusReserva())
-				.addValue("customer_id_reserva", reserva.getIdCustomer())
-				.addValue("active", 1)
-				.addValue("created_at", new Date()).addValue("updated_at", new Date())
-				).intValue();
-	}
-	
+  public ReservasRepository(NamedParameterJdbcTemplate jdbcTemplate, DataSource dataSource) {
+    this.jdbcTemplate = jdbcTemplate;
+    this.jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName(TABLE).usingGeneratedKeyColumns("reservation_id");
+  }
+
+
+  public Integer saveReserva(ReservationEntity reserva) {
+    return jdbcInsert.executeAndReturnKey(
+            new MapSqlParameterSource()
+                    .addValue("date_reserva", reserva.getDateReserva())
+                    .addValue("tipo_reserva", reserva.getTipoReserva())
+                    .addValue("hour_start", reserva.getHourStart())
+                    .addValue("hour_finish", reserva.getHourFinish())
+                    .addValue("quantity_persons", reserva.getQuantityPersons())
+                    .addValue("observations", reserva.getObservations())
+                    .addValue("status_reserva", reserva.getStatusReserva())
+                    .addValue("customer_id_reserva", reserva.getIdCustomer())
+    ).intValue();
+  }
 }
