@@ -216,3 +216,8 @@ jwtKeys.publicKeyPath=jwtKeys/public.key.pem
 java -jar security-app-0.0.1-SNAPSHOT.jar // path : /spring-workspace/security-app/build/libs$ java -jar security-app-0.0.1-SNAPSHOT.jar 
 
 ```
+
+##### run project
+```
+./gradlew bootRun
+```

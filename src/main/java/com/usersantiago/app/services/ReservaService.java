@@ -18,7 +18,9 @@ public class ReservaService {
 	public void createReserva(ReservationCreationDTO reservaRequest) {
 		ReservationEntity newReservation = new ReservationEntity(
 				reservaRequest.dateReserva(),
-				reservaRequest.tipoReserva(), 
+				reservaRequest.tipoReserva(),
+				reservaRequest.hourStart(),
+				reservaRequest.hourFinish(),
 				reservaRequest.quantityPersons(),
 				reservaRequest.observations(),
 				reservaRequest.statusReserva(),
