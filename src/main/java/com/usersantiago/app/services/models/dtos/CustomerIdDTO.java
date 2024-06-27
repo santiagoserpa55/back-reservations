@@ -11,7 +11,4 @@ public class CustomerIdDTO {
 	public Integer getCustomerId() {
 		return customerId;
 	}
-	
-	
-	
 }
