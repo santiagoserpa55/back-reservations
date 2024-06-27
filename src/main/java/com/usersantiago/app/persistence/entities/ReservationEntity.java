@@ -46,6 +46,10 @@ public class ReservationEntity extends CustomerEntity {
 		this.idCustomer = idCustomer;
 	}
 
+	public ReservationEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getIdReserva() {
 		return idReserva;
 	}

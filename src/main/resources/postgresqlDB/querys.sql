@@ -27,7 +27,7 @@ WHERE
 -- RESERVATIONS TABLE  --
 INSERT INTO public.reservations
 (date_reserva, tipo_reserva, status_reserva, quantity_persons, observations, active, created_at, updated_at, customer_id_reserva, hour_start, hour_finish)
-VALUES('2023-06-01 20:00', 'ALMUERZO', 'SOLICITADA', 10, 'NO', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, '08:10:00', '09:10:00');
+VALUES('2023-06-01 20:00', 'CUMPLEAÑOS', 'SOLICITADA', 10, 'NO', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, '08:10:00', '09:10:00');
 
 ALTER TABLE public.reservations ADD hour_start time without time zone;
 ALTER TABLE public.reservations ADD hour_finish time without time zone;
@@ -44,9 +44,11 @@ alter table reservations drop status_reserv;
 
 select * from reservations;
 
+--INNER CUSTOMER - REVERVA
+select date_reserva, tipo_reserva, quantity_persons, observations, status_reserva, hour_start, hour_finish from reservations r where customer_id_reserva = 2;
 
 
-/*SELECT COUNT(reservation_id) FROM reservations where customer_id_reserva = ; 
+/*SELECT COUNT(reservation_id) FROM reservations where customer_id_reserva = ;
 SELECT COUNT(customer_id)
 FROM customers
 WHERE city = 'London'; 
