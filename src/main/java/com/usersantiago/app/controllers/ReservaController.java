@@ -25,29 +25,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/v1/reservas")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReservaController {
-	
-	private final ReservaService reservaService;
-	private Mapper mapper;
 
-	public ReservaController(ReservaService reservaService, Mapper mapper) {
-		this.reservaService = reservaService;
-		this.mapper = mapper;
-	}
+  private final ReservaService reservaService;
+  private Mapper mapper;
 
-	@PostMapping("/create")
-	public ResponseEntity<?> createReserva(@RequestBody ReservationCreationDTO reservaRequest) {
-		reservaService.createReserva(reservaRequest);
-		return ResponseEntity.status(201).body((new MessageResponse("Reserva registrada existosamente!")));
-	}
-	
-    @GetMapping(value = "{id}")
-    public ResponseEntity<Map<String, List<GetReservasDTO>>> getReservas(@PathVariable Integer id) {
-        List<GetReservasDTO> reservas = reservaService.getBookings(id)
-                .stream()
-                .map(mapper::toDTOBooking)
-                .toList();
-        Map<String, List<GetReservasDTO>> responseBody = Map.of("data", reservas);
-        return new ResponseEntity<>(responseBody, HttpStatus.OK);
-    }
-	
+  public ReservaController(ReservaService reservaService, Mapper mapper) {
+    this.reservaService = reservaService;
+    this.mapper = mapper;
+  }
+
+  @PostMapping("/create")
+  public ResponseEntity<?> createReserva(@RequestBody ReservationCreationDTO reservaRequest) {
+    reservaService.createReserva(reservaRequest);
+    return ResponseEntity.status(201).body((new MessageResponse("Reserva registrada existosamente!")));
+  }
+
+  @GetMapping(value = "{id}")
+  public ResponseEntity<Map<String, List<GetReservasDTO>>> getReservas(@PathVariable Integer id) {
+    List<GetReservasDTO> reservas = reservaService.getBookings(id)
+        .stream()
+        .map(mapper::toDTOBooking)
+        .toList();
+    Map<String, List<GetReservasDTO>> responseBody = Map.of("data", reservas);
+    return new ResponseEntity<>(responseBody, HttpStatus.OK);
+  }
+
 }

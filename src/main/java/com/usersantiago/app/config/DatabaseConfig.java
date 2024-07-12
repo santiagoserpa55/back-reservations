@@ -19,10 +19,10 @@ public class DatabaseConfig {
 		return DataSourceBuilder.create().build();
 	}
 
-	@Bean
-	public JdbcTemplate appSecurityJdbcTemplate(DataSource appDataSource) {
-		return new JdbcTemplate(appDataSource);
-	}
+//	@Bean
+//	public JdbcTemplate appSecurityJdbcTemplate(DataSource appDataSource) {
+//		return new JdbcTemplate(appDataSource);
+//	}
 
 	// este te permite trabajar con parametros mucho mas facil
 	@Bean
