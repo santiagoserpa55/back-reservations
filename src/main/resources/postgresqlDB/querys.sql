@@ -1,10 +1,36 @@
 -- querys --
+/*
+1. CREATE TABLE ROL
+2. INSERT VALUES IN TABLE ROL
+3. CREATE TABLE CUSTOMERS
+4. CREATE TRIGGERS AND FUNCTON IN TABLE CUSTOMERS
+5. CREATE TABLE RESERVATIONS
+6. CREATE TRIGGER AND FUNCTIONS IN TABLE RESERVATIONS 
+*/
+
+/*
+ * TODO: NO SE PUEDE AGREGAR EL PRIMER REGISTRO ENLA DB SIEMPRE Y CUANDONO SE HAYA CREADO 1 POR CONSULTA SQL
+ 
+ **/
+
+
+
+SELECT * FROM pg_database WHERE datname = 'bookingappDB'; 
 
 -- DELETING CUSTOMER TABLE --
 
 DROP TABLE public.rol CASCADE;
 DROP TABLE public.customer CASCADE;
 DROP TABLE public.reservations CASCADE;
+
+-- ROL --
+select * from rol;
+insert into public.rol (rol_id, name) values (DEFAULT, 'ROL_USER')
+
+-- CUSTOMER --
+select * from public.customer;
+insert into public.customer (tipo_document,document,first_name,last_name,phone,email,password,birthdate)
+values ('VISA','100751745','Jamie','Styche','1121451','gstyche0@artisteer.com','USER1','1992-04-27');
 
 UPDATE public.customer
 	SET last_name ='Smith'
@@ -45,7 +71,15 @@ alter table reservations drop status_reserv;
 select * from reservations;
 
 --INNER CUSTOMER - REVERVA
-select date_reserva, tipo_reserva, quantity_persons, observations, status_reserva, hour_start, hour_finish from reservations r where customer_id_reserva = 2;
+select date_reserva, tipo_reserva, quantity_persons, observations, status_reserva, hour_start, hour_finish from reservations r where customer_id_reserva = 5;
+
+SELECT first_name, last_name  , date_reserva, tipo_reserva, quantity_persons, observations, status_reserva, hour_start, hour_finish
+FROM reservations r 
+JOIN customer c ON r.customer_id_reserva  = c.customer_id;
+
+select * from customer c;
+
+select tipo_document, document from customer c join reservations r on c.customer_id = r.customer_id_reserva;
 
 
 /*SELECT COUNT(reservation_id) FROM reservations where customer_id_reserva = ;

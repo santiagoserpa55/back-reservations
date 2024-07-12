@@ -50,6 +50,8 @@ CREATE TABLE IF NOT EXISTS public.reservations
     tipo_reserva character varying(20) COLLATE pg_catalog."default" NOT NULL,
     quantity_persons smallint NOT NULL,
     observations text COLLATE pg_catalog."default",
+    hour_start time without time zone,
+	  hour_finish time without time zone,
     status_reserva character varying(20) COLLATE pg_catalog."default" NOT NULL,
     active smallint DEFAULT 1,
     created_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
