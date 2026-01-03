@@ -1,17 +1,17 @@
 \connect appsecurity; -- line for docker
 -- ROL TABLE --
-CREATE SEQUENCE rol_rol_id_seq START WITH 1;
+CREATE SEQUENCE rol_id_seq START WITH 1;
 CREATE TABLE IF NOT EXISTS public.rol
 (
-    rol_id integer NOT NULL DEFAULT nextval('rol_rol_id_seq'::regclass),
+    rol_id integer NOT NULL DEFAULT nextval('rol_id_seq'::regclass),
     name character varying(10) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT rol_pkey PRIMARY KEY (rol_id)
 );
 
 -- CUSTOMER TABLE --
-CREATE sequence if not exists customer_customer_id_seq START WITH 1; -- seq for auto_incrememnt
+CREATE sequence if not exists customer_id_seq START WITH 1; -- seq for auto_incrememnt
 CREATE TABLE IF NOT EXISTS public.customer (
-	customer_id integer NOT NULL DEFAULT nextval('customer_customer_id_seq'::regclass),
+	customer_id integer NOT NULL DEFAULT nextval('customer_id_seq'::regclass),
     tipo_document character varying(10) collate pg_catalog."default" not null,
     document character varying(15) collate pg_catalog."default" not null,
     first_name character varying(50) collate pg_catalog."default" not null,
@@ -43,6 +43,7 @@ update
 );
 
 -- Reservations Table --
+CREATE sequence if not exists reserv_id_seq START WITH 1; -- seq for auto_incrememnt
 CREATE TABLE IF NOT EXISTS public.reservations
 (
     reservation_id integer NOT NULL GENERATED ALWAYS AS IDENTITY,

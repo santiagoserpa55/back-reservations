@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ReservaController {
 
   private final ReservaService reservaService;
-  private Mapper mapper;
+  private final Mapper mapper;
 
   public ReservaController(ReservaService reservaService, Mapper mapper) {
     this.reservaService = reservaService;

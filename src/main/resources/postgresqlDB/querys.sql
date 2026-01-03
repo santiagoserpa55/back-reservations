@@ -15,7 +15,7 @@
 
 
 
-SELECT * FROM pg_database WHERE datname = 'bookingappDB'; 
+SELECT * FROM pg_database WHERE datname = 'bookingapp';
 
 -- DELETING CUSTOMER TABLE --
 

@@ -12,10 +12,11 @@ import com.usersantiago.app.services.models.dtos.CustomerUpdateRequest;
 
 @RestController
 @RequestMapping("api/v1/customers")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CustomerControllers {
 
-  private CustomerService customerService;
-  private Mapper mapper;
+  private final CustomerService customerService;
+  private final Mapper mapper;
 
   // importante hacer la inyeccion de dependencias
   public CustomerControllers(CustomerService customerService, Mapper mapper) {
@@ -31,6 +32,12 @@ public class CustomerControllers {
         .map(mapper::toDTO)
         .toList();
     return Map.of("data", customerDTOs);
+  }
+
+  @GetMapping ("{customerId}")
+  public CustomerDTO getCustomer(
+          @PathVariable("customerId") String customerId) {
+    return customerService.getCustomer(customerId);
   }
 
   @PutMapping("{document}")

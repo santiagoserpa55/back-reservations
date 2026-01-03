@@ -166,14 +166,14 @@ public class CustomerRepository implements IcustomerDAO {
       //System.out.println("Actualizado " + result);
     }
 
-    if (customerUpdate.getBirthdate() != null) {
-      String sql = "UPDATE public.customer SET birthdate = :birthdate WHERE document = :document";
-      Map<String, Object> paramMap = new HashMap<>();
-      paramMap.put("birthdate", customerUpdate.getBirthdate());
-      paramMap.put("document", customerUpdate.getDocument());
-      int result = namedParameterJdbcTemplate.update(sql, paramMap);
-      System.out.println("Actualizado " + result);
-    }
+    // if (customerUpdate.getBirthdate() != null) {
+    //   String sql = "UPDATE public.customer SET birthdate = :birthdate WHERE document = :document";
+    //   Map<String, Object> paramMap = new HashMap<>();
+    //   paramMap.put("birthdate", customerUpdate.getBirthdate());
+    //   paramMap.put("document", customerUpdate.getDocument());
+    //   int result = namedParameterJdbcTemplate.update(sql, paramMap);
+    //   System.out.println("Actualizado " + result);
+    // }
   }
 
   @Override
