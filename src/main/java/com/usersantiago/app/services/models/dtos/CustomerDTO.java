@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public record CustomerDTO(
 				Integer customerId,
-				String tipoDocument,
-				String document,
+				String document_type,
+				String document_number,
 				String firstName,
 				String lastName,
 				String phone,

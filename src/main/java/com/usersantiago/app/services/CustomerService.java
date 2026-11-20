@@ -3,14 +3,15 @@ package com.usersantiago.app.services;
 import java.util.HashMap;
 import java.util.List;
 
-import com.usersantiago.app.api.Mapper;
-import com.usersantiago.app.services.models.dtos.CustomerDTO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.usersantiago.app.api.Mapper;
 import com.usersantiago.app.exceptions.RequestNotModified;
 import com.usersantiago.app.exceptions.ResourceNotFoundException;
 import com.usersantiago.app.persistence.entities.CustomerEntity;
 import com.usersantiago.app.services.models.dtos.CustomerCreationDTO;
+import com.usersantiago.app.services.models.dtos.CustomerDTO;
 import com.usersantiago.app.services.models.dtos.CustomerUpdateRequest;
 import com.usersantiago.app.services.models.dtos.LoginDTO;
 
@@ -31,13 +32,13 @@ public class CustomerService {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     CustomerCreationDTO newCustomer = new CustomerCreationDTO(
-            newCustomerRuquest.tipoDocument(),
-            newCustomerRuquest.document(),
+            newCustomerRuquest.documentType(),
+            newCustomerRuquest.documentNumber(),
             newCustomerRuquest.firstName(),
             newCustomerRuquest.lastName(),
             newCustomerRuquest.phone(),
             newCustomerRuquest.email(),
-            encoder.encode(newCustomerRuquest.password()),
+            encoder.encode(newCustomerRuquest.password_cust()),
             newCustomerRuquest.birthdate());
     customerDAO.saveCustomer(newCustomer);
   }
@@ -75,8 +76,8 @@ public class CustomerService {
 
     boolean changes = false;
 
-    if (updateRequest.tipoDocument() != null && !updateRequest.tipoDocument().equals(customer.getTipoDocument())) {
-      customer.setTipoDocument(updateRequest.tipoDocument());
+    if (updateRequest.document_type() != null && !updateRequest.document_type().equals(customer.getDocumentType())) {
+      customer.setDocumentType(updateRequest.document_type());
       changes = true;
     }
 

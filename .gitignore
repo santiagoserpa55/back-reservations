@@ -32,3 +32,8 @@ out/
 
 ### VS Code ###
 .vscode/
+.dbeaver/
+
+
+# Configuración local de DBeaver
+.dbeaver/

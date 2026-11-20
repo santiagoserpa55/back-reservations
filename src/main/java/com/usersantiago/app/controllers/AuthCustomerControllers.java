@@ -1,6 +1,7 @@
 package com.usersantiago.app.controllers;
 
 import java.util.HashMap;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.usersantiago.app.response.MessageResponse;
 import com.usersantiago.app.services.CustomerService;
 import com.usersantiago.app.services.models.dtos.CustomerCreationDTO;
@@ -21,16 +23,17 @@ import com.usersantiago.app.services.models.dtos.LoginDTO;
 @RequestMapping("/api/v1/auth")
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthCustomerControllers {
-	
+
 	private CustomerService customerService;
 
 	private AuthCustomerControllers(CustomerService customerService) {
 		this.customerService = customerService;
 	}
-	
+
 	@PostMapping("/signup")
 	public ResponseEntity<?> saveCustomer(@RequestBody CustomerCreationDTO requestNewCustomer) {
-		if (customerService.existsByDocument(requestNewCustomer.document())) {
+		if (customerService.existsByDocument(requestNewCustomer
+				.documentNumber())) {
 			return ResponseEntity.status(409).body(new MessageResponse("Error: Document is already in use!"));
 		}
 

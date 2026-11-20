@@ -1,6 +1,5 @@
 --***  LAS FUNCIONES NO SE ELIMINAN CUANDO ELIMINAS LA TABLA  ***--
 --***  LOS TRIGGER SI SE ELIMINAN CUANDO ELIMINAS LA TABLA  ***--
-
 -- ********** customer table ********** 
 CREATE OR REPLACE FUNCTION fill_table_customer()
 RETURNS TRIGGER AS $$

@@ -26,9 +26,9 @@ public class CustomerEntity extends PersonEntity {
 		this.rol = rol;
 	}
 
-	public CustomerEntity(String tipoDocument, String document, String firstName, String lastName, String phone,
+	public CustomerEntity(String document_type, String document, String firstName, String lastName, String phone,
 			String email, String password, LocalDate birthdate) {
-	    super(tipoDocument, document, firstName, lastName, phone, email, password, birthdate);
+		super(document_type, document, firstName, lastName, phone, email, password, birthdate);
 	}
 
 	public Integer getIdCustomer() {

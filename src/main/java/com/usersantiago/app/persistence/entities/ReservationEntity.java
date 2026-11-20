@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ReservationEntity extends CustomerEntity {
-	
+
 	private Integer idReserva;
 	private Integer idCustomer;
 	private LocalDate dateReserva;
@@ -18,9 +18,10 @@ public class ReservationEntity extends CustomerEntity {
 	private byte active;
 	private Instant createdAt;
 	private Instant updatedAt;
-	
+
 	public ReservationEntity(Integer idReserva, Integer idCustomer, LocalDate dateReserva, String tipoReserva,
-			short quantityPersons,String observations, String statusReserva, byte active, Instant createdAt, Instant updatedAt) {
+			short quantityPersons, String observations, String statusReserva, byte active, Instant createdAt,
+			Instant updatedAt) {
 		super();
 		this.idReserva = idReserva;
 		this.idCustomer = idCustomer;
@@ -34,8 +35,8 @@ public class ReservationEntity extends CustomerEntity {
 		this.updatedAt = updatedAt;
 	}
 
-	public ReservationEntity(LocalDate dateReserva, String tipoReserva, LocalTime hourStart, LocalTime hourFinish, short quantityPersons,
-			String observations, String statusReserva, Integer idCustomer) {
+	public ReservationEntity(LocalDate dateReserva, String tipoReserva, LocalTime hourStart, LocalTime hourFinish,
+			short quantityPersons, String observations, String statusReserva, Integer idCustomer) {
 		this.dateReserva = dateReserva;
 		this.hourStart = hourStart;
 		this.hourFinish = hourFinish;
@@ -58,10 +59,12 @@ public class ReservationEntity extends CustomerEntity {
 		this.idReserva = idReserva;
 	}
 
+	@Override
 	public Integer getIdCustomer() {
 		return idCustomer;
 	}
 
+	@Override
 	public void setIdCustomer(Integer idCustomer) {
 		this.idCustomer = idCustomer;
 	}
@@ -70,13 +73,22 @@ public class ReservationEntity extends CustomerEntity {
 		return dateReserva;
 	}
 
-	public LocalTime getHourStart() { return hourStart; }
+	public LocalTime getHourStart() {
+		return hourStart;
+	}
 
-	public void setHourStart(LocalTime hourStart) { this.hourStart = hourStart; }
+	public void setHourStart(LocalTime hourStart) {
+		this.hourStart = hourStart;
+	}
 
-	public LocalTime getHourFinish() { return hourFinish; }
+	public LocalTime getHourFinish() {
+		return hourFinish;
+	}
 
-	public void setHourFinish(LocalTime hourFinish) { this.hourFinish = hourFinish; }
+	public void setHourFinish(LocalTime hourFinish) {
+		this.hourFinish = hourFinish;
+	}
+
 	public void setDateReserva(LocalDate dateReserva) {
 		this.dateReserva = dateReserva;
 	}
@@ -105,10 +117,12 @@ public class ReservationEntity extends CustomerEntity {
 		this.statusReserva = statusReserva;
 	}
 
+	@Override
 	public byte getActive() {
 		return active;
 	}
 
+	@Override
 	public void setActive(byte active) {
 		this.active = active;
 	}
@@ -117,14 +131,17 @@ public class ReservationEntity extends CustomerEntity {
 		return createdAt;
 	}
 
+	@Override
 	public void setCreatedAt(Instant createdAt) {
 		this.createdAt = createdAt;
 	}
 
+	@Override
 	public Instant getUpdatedAt() {
 		return updatedAt;
 	}
 
+	@Override
 	public void setUpdatedAt(Instant updatedAt) {
 		this.updatedAt = updatedAt;
 	}

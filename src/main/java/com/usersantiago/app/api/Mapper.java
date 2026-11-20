@@ -12,19 +12,19 @@ import com.usersantiago.app.services.models.dtos.GetReservasDTO;
 
 @Component
 public class Mapper {
-	
+
 	public CustomerDTO toDTO(CustomerEntity customerEntity) {
 		int customerId = customerEntity.getIdCustomer();
-		String tipoDocument = customerEntity.getTipoDocument();
-		String document = customerEntity.getDocument();
+		String documentType = customerEntity.getDocumentType();
+		String documentNumber = customerEntity.getDocumentNumber();
 		String firstName = customerEntity.getFirstName();
 		String lastName = customerEntity.getLastName();
 		String phone = customerEntity.getPhone();
 		String email = customerEntity.getEmail();
 		LocalDate birthdate = customerEntity.getBirthdate();
-		return new CustomerDTO(customerId, tipoDocument, document, firstName, lastName, phone, email, birthdate);
+		return new CustomerDTO(customerId, documentType, documentNumber, firstName, lastName, phone, email, birthdate);
 	}
-	
+
 	public GetReservasDTO toDTOBooking(ReservationEntity reservationEntity) {
 		LocalDate dateReserva = reservationEntity.getDateReserva();
 		String tipoReserva = reservationEntity.getTipoReserva();

@@ -3,7 +3,7 @@ package com.usersantiago.app.services.models.dtos;
 public class ResponseDTO {
 	private int numOfErrors;
 	private String message;
-	
+
 	public int getNumOfErrors() {
 		return numOfErrors;
 	}
