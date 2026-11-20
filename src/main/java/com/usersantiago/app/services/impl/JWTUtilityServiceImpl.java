@@ -18,6 +18,8 @@ import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -35,9 +37,11 @@ import com.usersantiago.app.services.IJWTUtilityService;
 
 @Service
 public class JWTUtilityServiceImpl implements IJWTUtilityService {
-	
+
 	static final String MSG_INVALID_SIGNATURE = "Invalid Signature";
 	static final String MSG_EXPIRED_TOKEN = "Expired token";
+
+    private static final Logger log = LoggerFactory.getLogger(JWTUtilityServiceImpl.class);
 
 	// añadimos los @Value, pasar el path de las claves
 	@Value("classpath:jwtKeys/private_key.pem")
@@ -55,7 +59,7 @@ public class JWTUtilityServiceImpl implements IJWTUtilityService {
 
 		Date now = new Date();
 		JWTClaimsSet claimsSet = new JWTClaimsSet.Builder().subject(userId.toString()).issueTime(now)
-				.expirationTime(new Date(now.getTime() + 1440000)).build();
+				.expirationTime(new Date(now.getTime() + 320_000)).build();
 		SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.RS256), claimsSet);
 		signedJWT.sign(signer);
 		return signedJWT.serialize();
@@ -85,9 +89,14 @@ public class JWTUtilityServiceImpl implements IJWTUtilityService {
 
 		// Comparar las fechas
 		if (expirationDateTime.isBefore(currentDateTime)) {
-		    throw new JOSEException(MSG_EXPIRED_TOKEN);
+			log.warn(
+			        "Token expirado. exp={}, now={}",
+			        expirationDateTime,
+			        currentDateTime
+			    );
+			throw new JOSEException(MSG_EXPIRED_TOKEN);
 		}
-		
+
 		return claimsSet;
 	}
 

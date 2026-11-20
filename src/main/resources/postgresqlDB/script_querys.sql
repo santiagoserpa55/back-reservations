@@ -1,4 +1,5 @@
--- querys --
+--=======================================================================================
+--										QUERYS
 /*
 1. CREATE TABLE ROL
 2. INSERT VALUES IN TABLE ROL
@@ -10,50 +11,52 @@
 
 /*
  * TODO: NO SE PUEDE AGREGAR EL PRIMER REGISTRO ENLA DB SIEMPRE Y CUANDONO SE HAYA CREADO 1 POR CONSULTA SQL
- 
- **/
-
-
-
+ */
+--=======================================================================================
+--CREATE DATABASE IF NOT EXISTS 'bookingapp'; --no valido en postgresql
+CREATE DATABASE bookingapp WITH OWNER dev ENCODING 'UTF8';
 SELECT * FROM pg_database WHERE datname = 'bookingapp';
-
--- DELETING CUSTOMER TABLE --
-
+--=======================================================================================
+--										DELETING CUSTOMER TABLE --
 DROP TABLE public.rol CASCADE;
-DROP TABLE public.customer CASCADE;
+DROP TABLE customer CASCADE;
 DROP TABLE public.reservations CASCADE;
+--=======================================================================================
+--										ROL
+SELECT * FROM rol;
+INSERT INTO public.rol (rol_id, name) VALUES (DEFAULT, 'ROL_USER')
+--=======================================================================================
 
--- ROL --
-select * from rol;
-insert into public.rol (rol_id, name) values (DEFAULT, 'ROL_USER')
-
--- CUSTOMER --
-select * from public.customer;
-insert into public.customer (tipo_document,document,first_name,last_name,phone,email,password,birthdate)
-values ('VISA','100751745','Jamie','Styche','1121451','gstyche0@artisteer.com','USER1','1992-04-27');
+--=======================================================================================
+--										CUSTOMER
+--=======================================================================================
+SELECT * FROM customer;
+INSERT INTO customer (tipo_document,document_cust,first_name,last_name,phone,email,password_cust,birthdate)
+	VALUES ('VISA','100751745','Jamie','Styche','1121451','gstyche0@artisteer.com','USER1','1992-04-27');
 
 UPDATE public.customer
 	SET last_name ='Smith'
-	WHERE document = '1007517385';
+	WHERE document_cust = '1007517385';
 SELECT * FROM public.customer
 ORDER BY customer_id ASC
 DELETE FROM public.customer
 	WHERE customer_id = 27;
--- CALCULAR EDAD --
+--=======================================================================================
+--										CALCULAR EDAD
 SELECT first_name, AGE(CURRENT_TIMESTAMP, birthdate) age FROM customer;
-SELECT
-	first_name,
-	YEAR(CURDATE())-YEAR(birthdate) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(birthdate, '%m-%d'),
-	0 ,
-	-1 ) AS EDAD_ACTUAL
-FROM
-	customer
-WHERE
-	first_name = 'SANTIAGO';*/
--- RESERVATIONS TABLE  --
+--=======================================================================================
+select first_name,
+	YEAR(CURDATE())-YEAR(birthdate) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(birthdate, '%m-%d'),0,1 ) AS EDAD_ACTUAL
+FROM customer WHERE first_name = 'SANTIAGO';
+
+--=======================================================================================
+--										RESERVATIONS TABLE
+SELECT * FROM reservations;
 INSERT INTO public.reservations
-(date_reserva, tipo_reserva, status_reserva, quantity_persons, observations, active, created_at, updated_at, customer_id_reserva, hour_start, hour_finish)
-VALUES('2023-06-01 20:00', 'CUMPLEAÑOS', 'SOLICITADA', 10, 'NO', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, '08:10:00', '09:10:00');
+	(date_reserva, tipo_reserva, status_reserva, quantity_persons, observations, active,
+	created_at, updated_at, customer_id_reserva, hour_start, hour_finish)
+	VALUES('2023-06-01 20:00', 'CUMPLEAÑOS', 'SOLICITADA', 10, 'NO', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, '08:10:00', '09:10:00');
+
 
 ALTER TABLE public.reservations ADD hour_start time without time zone;
 ALTER TABLE public.reservations ADD hour_finish time without time zone;
@@ -66,20 +69,19 @@ CREATE TYPE statusReserv AS ENUM ('SOLICITADA', 'CONFIRMADA', 'CANCELADA');
 
 ALTER TABLE public.reservations ADD status_reserva statusReserv default 'SOLICITADA';
 
-alter table reservations drop status_reserv;
+ALTER TABLE reservations DROP status_reserv;
 
-select * from reservations;
 
 --INNER CUSTOMER - REVERVA
-select date_reserva, tipo_reserva, quantity_persons, observations, status_reserva, hour_start, hour_finish from reservations r where customer_id_reserva = 5;
+SELECT date_reserva, tipo_reserva, quantity_persons, observations, status_reserva, hour_start, hour_finish FROM reservations r
+	WHERE customer_id_reserva = 5;
 
 SELECT first_name, last_name  , date_reserva, tipo_reserva, quantity_persons, observations, status_reserva, hour_start, hour_finish
 FROM reservations r 
 JOIN customer c ON r.customer_id_reserva  = c.customer_id;
 
-select * from customer c;
 
-select tipo_document, document from customer c join reservations r on c.customer_id = r.customer_id_reserva;
+SELECT tipo_document, document_cust FROM customer c JOIN reservations r ON c.customer_id = r.customer_id_reserva;
 
 
 /*SELECT COUNT(reservation_id) FROM reservations where customer_id_reserva = ;

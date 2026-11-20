@@ -12,7 +12,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.usersantiago.app.services.IJWTUtilityService;
-import com.usersantiago.app.services.impl.JWTUtilityServiceImpl;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -36,7 +35,7 @@ public class SecurityConfig {
 						.anyRequest().authenticated())// add roles
 				.sessionManagement(
 						sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.addFilterBefore(new JWTAuthorizationFilter((JWTUtilityServiceImpl) jwtUtilityService),
+				.addFilterBefore(new JWTAuthorizationFilter(jwtUtilityService),
 						UsernamePasswordAuthenticationFilter.class)
 				.exceptionHandling(exceptionHandling -> exceptionHandling
 						.authenticationEntryPoint((request, response, authException) -> {
